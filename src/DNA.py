@@ -10,6 +10,7 @@ from collections import (
     defaultdict,
 )
 
+# from .genome_loader import GenomeLoader
 
 # Bases Nitrogenadas que participan del ADN
 BASES_NITROGENADAS = {
@@ -41,10 +42,15 @@ class DNA:
         self.sequence = sequence 
 
     def complement(self, sequence: Optional[str] = None): 
-        "Compementary ADN sequence"
+        "Complementary ADN sequence"
         sequence = sequence if sequence is not None else self.sequence
         return "".join(COMPLEMENT.get(nucleotide) for nucleotide in sequence)
     
+    def reverse_complement(self, sequence: Optional[str] = None): 
+        "Reverse complement of a sequence (Used for Sequencing by Synteshis)"
+        sequence = self.complement(sequence)
+        return sequence[::-1]
+
     def to_ARN(self,):
         pass
     
@@ -54,6 +60,7 @@ class DNA:
 
     # magic methods
     def __repr__(self,): 
+        "output of print(dna)"
         summary = []
         
         # Frequency of Nucleotides
@@ -70,6 +77,17 @@ class DNA:
 
         return "\n".join(summary)
 
+
+    # For setting the value
+    def __setitem__(self, index, value):
+        "Insert a nucleotide the sequence (the old value will be replaced by the new one)"
+        self.sequence = self.sequence[:index] + value + self.sequence[(index+1):]
+        return self.sequence
+
+    def __getitem__(self,index):
+        "Get a nucleotide in the sequence"
+        return self.sequence[index]
+
     @staticmethod
     def nucleotide_representativity(sequence: str, sort: bool = True):
         "Representativity of each nucleotide in a DNA sequence"
@@ -80,3 +98,4 @@ class DNA:
         count_nucleotides = sorted(count_nucleotides.items(), key = lambda item: item[1], reverse=True)
         
         return count_nucleotides
+

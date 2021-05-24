@@ -28,6 +28,16 @@ dna = DNA("AATTCCGC")
 > DNA('AATTCCGC')
 
 # 
+dna.reverse_complement()
+> 'GCGGAATT'
+```
+
+# Loaders
+```python
+from algenomics import (
+    FastqLoader,
+    FastaLoader,
+)
 ```
 
 Inspirado en el libro "¿Qué puede salir mal?" de "La Hiperactina".
