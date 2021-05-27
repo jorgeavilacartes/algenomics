@@ -1,21 +1,17 @@
 class Naive:
     "Return a list with indexes where a pattern matches in a sequence"
     
-    def __init__(self, sequence: str,): 
-        self.sequence = sequence
-    
-    def __call__(self, pattern: str,):
-        matches = self.get_all_match(self.sequence, pattern)
-        return True if matches else False, matches
+    def __call__(self, pattern: str, sequence: str):
+        matches = self.get_all_match(pattern, sequence)
+        return matches
         
-    @staticmethod
-    def get_all_match(sequence: str, pattern: str): 
+    
+    def get_all_match(self, pattern: str, sequence: str,): 
         "Get all matches in a sequence for a given pattern"
         matches = []
         p0 = pattern[0]
 
         max_pos = len(sequence) - len(pattern) + 1
-        print("max_pos", max_pos)
         
         # Find match for the first character in pattern
         for i, s in enumerate(sequence): 
@@ -28,19 +24,24 @@ class Naive:
             
             # Find match with first char of the pattern
             if s == p0: 
-                
-                # Verify if the pattern is contained in the sequence
-                for j,p in enumerate(pattern[1:]): 
-                    
-                    # Break the loop if no-coincidence is found
-                    if p != sequence[i+1+j]: 
-                        break
-                        
-                # Otherwise, a match was found
-                is_match = True
+                # # Verify if the rest of the pattern is contained in the sequence
+                is_match = self.pattern_is_match(pattern, sequence[i:])
                 
             # Save match
             if is_match: 
                 matches.append(i)
 
         return matches
+        
+
+    @staticmethod
+    def pattern_is_match(pattern, sequence):
+        "Verify if pattern[1:] match with the prefix of sequence[1:]"
+        # Verify if the pattern is contained in the sequence
+        for j,p in enumerate(pattern[1:]): 
+            
+            # Break the loop if no-coincidence is found
+            if p != sequence[j+1]: 
+                return False
+
+        return True

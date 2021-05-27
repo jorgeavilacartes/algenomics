@@ -1,0 +1,7 @@
+DIGRAPH {
+    A [label="A"]
+    B [label="B"] 
+    C [label="C", color="blue"]
+    A -> B
+    A -> C 
+}
