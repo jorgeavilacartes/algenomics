@@ -1,0 +1,29 @@
+// De Bruijn
+digraph {
+	CA [label=CA]
+	GC [label=GC]
+	TA [label=TA]
+	TG [label=TG]
+	AA [label=AA]
+	CC [label=CC]
+	GA [label=GA]
+	GG [label=GG]
+	GT [label=GT]
+	AT [label=AT]
+	TT [label=TT]
+	TA -> AA
+	AA -> AT
+	AT -> TG
+	TG -> GC
+	GC -> CC
+	CC -> CA
+	CA -> AT
+	AT -> TG
+	TG -> GG
+	GG -> GG
+	GG -> GA
+	GA -> AT
+	AT -> TG
+	TG -> GT
+	GT -> TT
+}
